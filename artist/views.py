@@ -22,7 +22,9 @@ def artist_page(request,pk):
     artist = get_object_or_404(Artist, pk=pk)
     concerts = Concert.objects.filter(artistname = artist).order_by('concert_date')
     g = GeoIP2('geoip')
-    ip = get_client_ip(request)
-    client_countyname = g.country_code(ip)
-    client_region = g.region(ip)
-    return render(request, 'artist/artist_page.html', {'artist' : artist, 'concerts' : concerts, 'client_ip': ip, 'client_region':client_region,'client_countyname':client_countyname})
+    # New Zealand '121.72.165.118' '110.33.122.75'
+    #cip = get_client_ip(request)
+    cip = '110.33.122.75'
+    client_country = g.country_name(cip)
+    nearconcert = concerts.filter(country = client_country).order_by('concert_date')
+    return render(request, 'artist/artist_page.html', {'artist' : artist, 'concerts' : concerts,'client_ip':cip,'client_country':client_country, 'nearconcert' : nearconcert})

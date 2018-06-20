@@ -1,8 +1,16 @@
 {% extends 'artist/base.html' %}
 {% block content %}
+<br><br>
+<div class="container">
+  <div class = "row">
     {% for artist in artists %}
-        <div class="artist">
-          <h1><a href="{% url 'artist_page' pk=artist.pk %}">{{ artist.artistname }}</a></h1>
-        </div>
+      <div class = "col-md-4 text-center">
+        <a href="{% url 'artist_page' pk=artist.pk %}"><img src="{{ artist.image.url }}" width = "200" height="200" class="rounded-circle mx-auto d-block"></a>
+          <br>
+          <h3>{{ artist.artistname }}</h3>
+      </div>
     {% endfor %}
+  </div>
+</div>
+
 {% endblock %}

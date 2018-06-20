@@ -29,11 +29,20 @@ class Concert(models.Model):
     city = models.CharField(max_length=200, blank = True)
     region =  models.CharField(max_length=200, blank = True)
     country = models.CharField(max_length=200)
-    published_date = models.DateTimeField(
-        default=timezone.now)
-    concert_date = models.DateField(
-            null=True)
+    published_date = models.DateTimeField(default=timezone.now)
+    concert_date = models.DateField(null=True)
     ticketlink = models.URLField(default = '')
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+class Song(models.Model):
+    nameofsong = models.CharField(max_length=30)
+    artistname = models.CharField(max_length=30)
+    coverimage = models.ImageField(upload_to = 'cover_image')
+    albumname = models.CharField(max_length=30)
+    releasedate =models.DateField(default=timezone.now)
 
     def publish(self):
         self.published_date = timezone.now()
