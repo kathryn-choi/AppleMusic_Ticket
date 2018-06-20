@@ -1,0 +1,101 @@
+{% extends 'artist/base.html' %}
+{% block content %}
+    <!-- Page Content -->
+
+    <br><br>
+      <img src="{{ artist.image.url }}" width = "200" height="200" class="rounded-circle mx-auto d-block">
+    <div class="row">
+      <div class="col-sm-5 offset-md-1"><span calss="glyphicon glyphicon-play-circle"></span>
+        <h2>{{ artist.artistname }}</h2>
+      </div>
+      <br>
+      <hr width="80%" align="center">
+    </div>
+
+
+    <div class="row">
+        <div class = "col-sm-3 offset-md-1">
+          <h5>추천 발매</h5>
+        </div>
+        <div class = "col-sm-7 offset-md-1">
+          <h5>Top Songs</h5>
+        </div>
+        <hr width="80%" align="center">
+        <hr width="80%" align="center">
+
+      <div class = "col-sm-10 offset-md-1">
+        <p>{{client_ip}}</p>
+
+    {% if concerts %}
+        <div class="card">
+          <div class="card-body">
+            <h3> Upcoming Concert Near You </h3>
+            <div class="table-wrapper-2">
+              <table class="table table-responsive-md", font size:'80%'>
+                <thead class="mdb-color lighten-4">
+                    <tr>
+                        <th class="th-lg">Concert Date</th>
+                        <th class="th-lg">Venue</th>
+                        <th class="th-lg">City</th>
+                        <th class="th-lg">Region</th>
+                        <th class="th-lg">Country</th>
+                        <th class="th-lg">Ticket</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for concert in concerts %}
+                      {% if client_region == concert.region %}
+                        <tr>
+                            <td>{{concert.concert_date}}</td>
+                            <td>{{concert.venue}}</td>
+                            <td>{{concert.city}}</td>
+                            <td>{{concert.region}}</td>
+                            <td>{{concert.country}}</td>
+                            <td><a class="btn btn-primary" href="{{concert.ticketlink}}" role="button">Ticket</a></td>
+                        </tr>
+                      {% else %}
+                        {% if client_country == concert.country %}
+                          <tr>
+                              <td>{{concert.concert_date}}</td>
+                              <td>{{concert.venue}}</td>
+                              <td>{{concert.city}}</td>
+                              <td>{{concert.region}}</td>
+                              <td>{{concert.country}}</td>
+                              <td><a class="btn btn-primary" href="{{concert.ticketlink}}" role="button">Ticket</a></td>
+                          </tr>
+                          {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <h2>no concert</h2>
+      {% endif %} 
+      </div>
+    </div>
+
+
+    <div class="jumbotron jumbotron-fluid">
+      <div class="row">
+          <div class="col-sm-5 offset-md-1">
+            <h4>About {{ artist.artistname }}</h4>
+            <p>{{ artist.info}}</p>
+          </div>
+          <div class="col-sm-5 offset-md-1">
+            <br><br>
+              <hr width="55%" align="left">
+              **FUSE.Artist.Bio.Hometown**
+              <p>{{ artist.bio}}</p>
+              <br><br>
+              <hr width="55%" align="left">
+              장르
+              <p>{{ artist.genre}}</p>
+
+          </div>
+      </div>
+    </div>
+
+{% endblock %}
