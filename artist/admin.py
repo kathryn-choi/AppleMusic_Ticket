@@ -1,5 +1,5 @@
 from django.contrib import admin
-from artist.models import Concert, Artist
+from artist.models import Concert, Artist,Song
 
 class ConcertAdmin(admin.ModelAdmin):
     list_per_page = 10
@@ -11,3 +11,4 @@ class ConcertAdmin(admin.ModelAdmin):
 
 admin.site.register(Concert,ConcertAdmin)
 admin.site.register(Artist)
+admin.site.register(Song)

@@ -38,12 +38,15 @@ class Concert(models.Model):
         self.save()
 
 class Song(models.Model):
-    nameofsong = models.CharField(max_length=30)
+    nameofsong = models.CharField(max_length=200)
     artistname = models.CharField(max_length=30)
-    coverimage = models.ImageField(upload_to = 'cover_image')
-    albumname = models.CharField(max_length=30)
-    releasedate =models.DateField(default=timezone.now)
+    coverimage = models.ImageField(upload_to = 'profile_image')
+    albumname = models.CharField(max_length=200)
+    releasedate =models.CharField(max_length=30)
 
     def publish(self):
         self.published_date = timezone.now()
         self.save()
+
+    def __str__(self):
+        return self.nameofsong
